@@ -61,8 +61,19 @@ $(document).ready(function(e) {
     wms.onSelect = function(list: WidgetMobileSelectorList): void {
         $("#touch > div").text("U select: " + list[0].text + " -> " + list[1].text + " -> " + list[2].text);
     };
+    let wms2: WidgetMobileSelector = new WidgetMobileSelector({
+        title: "中文选框",
+        lang: "zh-cn",
+        data: [{text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}]
+    });
+    wms2.onSelect = function(list: WidgetMobileSelectorList): void {
+        $("#touch2 > div").text("U select: " + list[0].text);
+    };
     $("#touch").on("touchstart", function(): void {
         wms.show();
+    });
+    $("#touch2").on("touchstart", function(): void {
+        wms2.show();
     });
 });
 

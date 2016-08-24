@@ -79,6 +79,9 @@ var WidgetMobileSelector = (function () {
         if (opts.lang) {
             this.lang = opts.lang;
         }
+        if (opts.title) {
+            this.title = opts.title;
+        }
     }
     Object.defineProperty(WidgetMobileSelector.prototype, "lang", {
         get: function () {

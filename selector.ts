@@ -134,6 +134,9 @@ class WidgetMobileSelector {
         if (opts.lang) {
             this.lang = opts.lang;
         }
+        if (opts.title) {
+            this.title = opts.title;
+        }
     }
 
     // --- 显示 ---

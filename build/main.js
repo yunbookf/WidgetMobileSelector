@@ -61,8 +61,19 @@ $(document).ready(function (e) {
     wms.onSelect = function (list) {
         $("#touch > div").text("U select: " + list[0].text + " -> " + list[1].text + " -> " + list[2].text);
     };
+    var wms2 = new WidgetMobileSelector({
+        title: "中文选框",
+        lang: "zh-cn",
+        data: [{ text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }]
+    });
+    wms2.onSelect = function (list) {
+        $("#touch2 > div").text("U select: " + list[0].text);
+    };
     $("#touch").on("touchstart", function () {
         wms.show();
+    });
+    $("#touch2").on("touchstart", function () {
+        wms2.show();
     });
 });
 //# sourceMappingURL=main.js.map
