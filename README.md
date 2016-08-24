@@ -26,6 +26,9 @@ $("body").on("click", function(): void {
 });
 ```
   
+## 截图 / Screenshot
+![截图 / screenshot](https://github.com/yunbookf/WidgetMobileSelector/raw/master/screenshot.png)
+  
 ## 多级联动 / Multi-level linkage  
 只需要在 data 里再指定 data 即可，最多 3 层，举个例子：  
 Only need to specify data in the data, and then you can, up to 3 layers, for example:  
