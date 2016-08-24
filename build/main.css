@@ -1,29 +1,17 @@
-.widgetNavigate{border-bottom: 1px solid #ff9000; box-sizing: border-box; font-size: 14px;}
-.widgetNavigate.position{left: 0; top: 0; width: 100%;}
-.widgetNavigate a{text-decoration: none;}
-.widgetNavigate > .body{margin: auto;}
-.widgetNavigate .icon{display: inline-block; background-repeat: no-repeat; background-position: left center;}
-.widgetNavigate .nav{float: right;}
-.widgetNavigate .nav > .item{display: inline-block; padding: 0 25px; color: #666; border-bottom: 3px solid transparent; box-sizing: border-box; position: relative;}
-.widgetNavigate .nav > .item:hover{border-bottom-color: #ff9000; color: #ff9000;}
-.widgetNavigate .nav > span.item{cursor: default;}
-.widgetNavigate .nav > a.item{cursor: pointer;}
-.widgetNavigate .nav > span.item:hover > .menu{display: block;}
-.widgetNavigate .nav > .selected{border-bottom-color: #ff9000; color: #ff9000; background-color: rgba(0, 0, 0, .03);}
-.widgetNavigate .menu{position: absolute; left: 0; border: solid 1px #ff9000; background-color: #FFF; line-height: 1.5; width: 220px; padding: 1px; display: none; box-sizing: border-box;}
-.widgetNavigate .menu > span.item{cursor: default;}
-.widgetNavigate .menu > a.item{cursor: pointer;}
-.widgetNavigate .menu > .item{display: block; padding: 10px; color: #666;}
-.widgetNavigate .menu > .item:hover{background-color: #ff9000; color: #FFF;}
+#touch{border: solid 1px #000; padding: 20px;}
+#touch > div{margin-top: 10px;}
 
-/* --- 自定义 CSS --- */
-
-#topNav .icon, #screenNav .icon{background-image: url(logo.jpg); background-size: 65%; width: 80px;}
-#screen{width: 800px; margin: 150px auto 0 auto; border: 20px solid #999; height: 300px; background-color: #000;}
-#screenNav{border-bottom-color: rgba(255,255,255,.3);}
-#screenNav:hover{background-color: rgba(255,255,255,.1);}
-#screenNav .nav > .item:hover{border-bottom-color: #4c4c4c; color: #999;}
-#screenNav .menu{border-color: #4c4c4c; background-color: rgba(0,0,0,.8);}
-#screenNav .menu > .item:hover{background-color: rgba(255,255,255,.1); color: #999;}
-
-.tip{text-align: center; margin: 30px 0 0 0;}
+.widgetMobileSelector{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .1); font-size: 14px; z-index: 1000; display: none;}
+.widgetMobileSelectorShow{display: block;}
+.widgetMobileSelectorBody{height: 300px; background-color: #f9f9f9; position: absolute; width: 100%; left: 0; bottom: 0;}
+.widgetMobileSelectorTitle{box-sizing: border-box; border-top: 1px solid #cacaca; display: -webkit-box;}
+.widgetMobileSelectorTitle > div{height: 50px; line-height: 50px;}
+.widgetMobileSelectorText{text-align: center; -webkit-box-flex: 2; font-size: 18px; width: 0;}
+.widgetMobileSelectorLeft,.widgetMobileSelectorRight{text-align: center; -webkit-box-flex: 1; width: 0;}
+.widgetMobileSelectorContent{box-sizing: border-box; border-top: 1px solid #e1e5e7; position: relative; background-color: #FFF; display: -webkit-box;}
+.widgetMobileSelectorList{overflow: scroll; height: 250px; -webkit-box-flex: 1; width: 0;}
+.widgetMobileSelectorItem{height: 50px; line-height: 50px; text-align: center;}
+.widgetMobileSelectorBlank{height: 100px;}
+.widgetMobileSelectorTop,.widgetMobileSelectorBottom{height: 100px; background-color: rgba(255,255,255,.7); position: absolute; left: 0; width: 100%; pointer-events: none; box-sizing: border-box;}
+.widgetMobileSelectorTop{top: 0; border-bottom: 1px solid #e1e5e7;}
+.widgetMobileSelectorBottom{bottom: 0; border-top: 1px solid #e1e5e7;}
