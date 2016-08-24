@@ -2,6 +2,9 @@
 在手机网页上轻松创建一级或多级联动的选择器。
 On the mobile Web to easily create one or multiple-level linkage of the selector.
 
+滚动速度超快，堪比原生控件！
+Scrolling speed is super fast, and compete with native controls!
+
 本组件虽然使用 TypeScript 开发，但是也可以用于 JavaScript。
 The components use TypeScript to develop, but can also be used in JavaScript.
 
