@@ -13,3 +13,23 @@ interface WidgetMobileSelectorItem {
     data?: WidgetMobileSelectorList;
 }
 
+interface WidgetMobileSelectorInstance {
+    dom: JQuery;
+    lang: string;
+    langList: any;
+    title: string;
+
+    show(): void;
+    hide(): void;
+
+    onSelect(list: WidgetMobileSelectorList): boolean | void;
+}
+
+interface WidgetPaginatorConstructor {
+    new(opts?: WidgetMobileSelectorOptions): WidgetMobileSelectorInstance;
+
+    version: string;
+}
+
+// declare let WidgetMobileSelector:WidgetMobileSelectorConstructor;
+

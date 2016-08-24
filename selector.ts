@@ -24,7 +24,7 @@ class WidgetMobileSelector {
         }
     }
     // --- 语言列表 ---
-    public langList = {
+    public langList: any = {
         "en-us": {
             "cancel": "Cancel",
             "ok": "OK"
