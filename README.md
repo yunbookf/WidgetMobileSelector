@@ -7,6 +7,9 @@ Scrolling speed is super fast, and compete with native controls!
   
 本组件虽然使用 TypeScript 开发，但是也可以用于 JavaScript。  
 The components use TypeScript to develop, but can also be used in JavaScript.  
+
+只需要引用 selector.js 即可开始使用。  
+selector.js needs references to get started.  
   
 ## 简单 / So easy!
 使用下面的代码即可创建一个选择器，并且使用 show() 方法可以随时让它显示：  
