@@ -184,7 +184,7 @@ class WidgetMobileSelector {
 }
 
 $("head:eq(0)").prepend(`<style>
-.widgetMobileSelector{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .1); font-size: 14px; z-index: 1000; display: none;}
+.widgetMobileSelector{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .1); font-size: 14px; z-index: 1000; display: none; -webkit-user-select: none;}
 .widgetMobileSelectorShow{display: block;}
 .widgetMobileSelectorBody{height: 300px; background-color: #f9f9f9; position: absolute; width: 100%; left: 0; bottom: 0;}
 .widgetMobileSelectorTitle{box-sizing: border-box; border-top: 1px solid #cacaca; display: -webkit-box;}
