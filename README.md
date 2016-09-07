@@ -1,4 +1,4 @@
-# WidgetMobileSelector
+# WidgetSelector
 在手机网页上轻松创建一级或多级联动的选择器。  
 On the mobile Web to easily create one or multiple-level linkage of the selector.  
   
@@ -18,7 +18,7 @@ This project has a dependency on ModuleTouch, you need to reference navigate.min
 Use the following code to create a selector, and use the show() method can make it appear at any time:  
   
 ```typescript
-let wms: WidgetMobileSelector = new WidgetMobileSelector({
+let wms: WidgetSelector = new WidgetSelector({
     data: [{
         text: "one"
     }, {
@@ -32,14 +32,14 @@ $("body").on("click", function(): void {
 ```
   
 ## 截图 / Screenshot
-![截图 / screenshot](https://github.com/yunbookf/WidgetMobileSelector/raw/master/screenshot.png)
+![截图 / screenshot](https://github.com/yunbookf/WidgetSelector/raw/master/screenshot.png)
   
 ## 多级联动 / Multi-level linkage  
 只需要在 data 里再指定 data 即可，最多 3 层，举个例子：  
 Only need to specify data in the data, and then you can, up to 3 layers, for example:  
   
 ```typescript
-let wms: WidgetMobileSelector = new WidgetMobileSelector({
+let wms: WidgetSelector = new WidgetSelector({
     data: [{
         text: "one",
         data: [{
@@ -68,7 +68,7 @@ let wms: WidgetMobileSelector = new WidgetMobileSelector({
 In this component, you can get to the display text of all selected items, as well as his value, as follows:  
   
 ```typescript
-let wmst: WidgetMobileSelector = new WidgetMobileSelector({
+let wmst: WidgetSelector = new WidgetSelector({
     data: [{
         text: "one",
         value: "1",
@@ -93,7 +93,7 @@ let wmst: WidgetMobileSelector = new WidgetMobileSelector({
 });
 wmst.show();
 
-wmst.onSelect = function(list: WidgetMobileSelectorList): void {
+wmst.onSelect = function(list: WidgetSelectorList): void {
     alert("U select: " + list[0].text + "(" + list[0].value + "), " + list[1].text + "(" + list[1].value + ")");
 };
 ```
@@ -101,7 +101,7 @@ wmst.onSelect = function(list: WidgetMobileSelectorList): void {
 ## API
   
 ```typescript
-interface WidgetMobileSelectorInstance {
+interface WidgetSelectorInstance {
     lang: string;
     langList: any;
     title: string;
@@ -109,7 +109,7 @@ interface WidgetMobileSelectorInstance {
     show(): void;
     hide(): void;
 
-    onSelect(list: WidgetMobileSelectorList): boolean | void;
+    onSelect(list: WidgetSelectorList): boolean | void;
 }
 ```
   
