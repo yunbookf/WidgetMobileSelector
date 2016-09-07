@@ -1,5 +1,5 @@
-var WidgetMobileSelector = (function () {
-    function WidgetMobileSelector(opts) {
+var WidgetSelector = (function () {
+    function WidgetSelector(opts) {
         this._lang = "en-us";
         this.langList = {
             "en-us": {
@@ -17,17 +17,19 @@ var WidgetMobileSelector = (function () {
         };
         this._title = "Selector";
         this.onSelect = function () { };
-        var dom = $("<div class=\"widgetMobileSelector\">\n            <div class=\"widgetMobileSelectorBody\">\n                <div class=\"widgetMobileSelectorTitle\">\n                    <div class=\"widgetMobileSelectorLeft\">Cancel</div>\n                    <div class=\"widgetMobileSelectorText\">Selector</div>\n                    <div class=\"widgetMobileSelectorRight\">OK</div>\n                </div>\n                <div class=\"widgetMobileSelectorContent\">\n                    <div class=\"widgetMobileSelectorList\">\n                        <div class=\"widgetMobileSelectorBlank\"></div>\n                    </div>\n                    <div class=\"widgetMobileSelectorList\" style=\"display: none;\"></div>\n                    <div class=\"widgetMobileSelectorList\" style=\"display: none;\"></div>\n                    <div class=\"widgetMobileSelectorTop\"></div>\n                    <div class=\"widgetMobileSelectorBottom\"></div>\n                </div>\n            </div>\n        </div>");
-        dom.on("touchstart", (function (e) {
-            if ($(e.target).hasClass("widgetMobileSelector"))
+        var dom = $("<div class=\"widgetSelector\">\n            <div class=\"widgetSelectorBody\">\n                <div class=\"widgetSelectorTitle\">\n                    <div class=\"widgetSelectorLeft\">Cancel</div>\n                    <div class=\"widgetSelectorText\">Selector</div>\n                    <div class=\"widgetSelectorRight\">OK</div>\n                </div>\n                <div class=\"widgetSelectorContent\">\n                    <div class=\"widgetSelectorList\">\n                        <div class=\"widgetSelectorBlank\"></div>\n                    </div>\n                    <div class=\"widgetSelectorList\" style=\"display: none;\"></div>\n                    <div class=\"widgetSelectorList\" style=\"display: none;\"></div>\n                    <div class=\"widgetSelectorTop\"></div>\n                    <div class=\"widgetSelectorBottom\"></div>\n                </div>\n            </div>\n        </div>");
+        ModuleTouch.tap(dom, (function (e) {
+            if ($(e.target).hasClass("widgetSelector"))
                 this.hide();
+            return false;
         }).bind(this));
-        dom.find(".widgetMobileSelectorLeft").on("touchstart", (function () {
+        ModuleTouch.tap(dom.find(".widgetSelectorLeft"), (function () {
             this.hide();
+            return false;
         }).bind(this));
-        dom.find(".widgetMobileSelectorRight").on("touchstart", (function () {
+        ModuleTouch.tap(dom.find(".widgetSelectorRight"), (function () {
             var list = [];
-            dom.find(".widgetMobileSelectorSelected").each(function (i, item) {
+            dom.find(".widgetSelectorSelected").each(function (i, item) {
                 var itemDom = $(item);
                 list.push({
                     text: itemDom.text(),
@@ -38,35 +40,35 @@ var WidgetMobileSelector = (function () {
                 this.hide();
         }).bind(this));
         $("body").append(dom);
-        var listDom1 = dom.find(".widgetMobileSelectorList:eq(0)");
+        var listDom1 = dom.find(".widgetSelectorList:eq(0)");
         var i = 0;
         for (var _i = 0, _a = opts.data; _i < _a.length; _i++) {
             var item = _a[_i];
             if (item.value === undefined)
                 item.value = item.text;
-            var itemDom = $("<div class=\"widgetMobileSelectorItem\" value=\"" + item.value + "\">" + item.text + "</div>").appendTo(listDom1);
+            var itemDom = $("<div class=\"widgetSelectorItem\" value=\"" + item.value + "\">" + item.text + "</div>").appendTo(listDom1);
             itemDom.data("data", item.data ? item.data : {});
             if (i === 0) {
-                itemDom.addClass("widgetMobileSelectorSelected");
+                itemDom.addClass("widgetSelectorSelected");
                 if (item.data)
                     this.activeItem(itemDom);
             }
             ++i;
         }
-        listDom1.append("<div class=\"widgetMobileSelectorBlank\"></div>");
-        var listDom = dom.find(".widgetMobileSelectorList");
+        listDom1.append("<div class=\"widgetSelectorBlank\"></div>");
+        var listDom = dom.find(".widgetSelectorList");
         listDom.on("touchstart", (function (e) {
             var thisListDom = $(e.currentTarget);
-            $("body").on("touchend.widgetMobileSelector", (function () {
-                $("body").off("touchend.widgetMobileSelector");
+            $("body").on("touchend.widgetSelector", (function () {
+                $("body").off("touchend.widgetSelector");
                 var onScrollEnd = (function () {
                     thisListDom.off("scroll");
                     var index = Math.round(thisListDom.scrollTop() / 50);
                     thisListDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
-                    thisListDom.children(".widgetMobileSelectorItem:eq(" + index + ")").addClass("widgetMobileSelectorSelected").siblings(".widgetMobileSelectorSelected").removeClass("widgetMobileSelectorSelected");
-                    this.activeItem(thisListDom.children(".widgetMobileSelectorSelected"));
+                    thisListDom.children(".widgetSelectorItem:eq(" + index + ")").addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
+                    this.activeItem(thisListDom.children(".widgetSelectorSelected"));
                 }).bind(this);
                 var scrolling = setTimeout(onScrollEnd, 50);
                 thisListDom.on("scroll", (function () {
@@ -83,7 +85,7 @@ var WidgetMobileSelector = (function () {
             this.title = opts.title;
         }
     }
-    Object.defineProperty(WidgetMobileSelector.prototype, "lang", {
+    Object.defineProperty(WidgetSelector.prototype, "lang", {
         get: function () {
             return this._lang;
         },
@@ -91,8 +93,8 @@ var WidgetMobileSelector = (function () {
             if (val !== this._lang) {
                 if (this.langList[val]) {
                     this._lang = val;
-                    this.dom.find(".widgetMobileSelectorLeft").text(this.langList[val]["cancel"]);
-                    this.dom.find(".widgetMobileSelectorRight").text(this.langList[val]["ok"]);
+                    this.dom.find(".widgetSelectorLeft").text(this.langList[val]["cancel"]);
+                    this.dom.find(".widgetSelectorRight").text(this.langList[val]["ok"]);
                 }
                 else {
                     alert("Error: langList[" + val + "] not found!");
@@ -102,48 +104,50 @@ var WidgetMobileSelector = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(WidgetMobileSelector.prototype, "title", {
+    Object.defineProperty(WidgetSelector.prototype, "title", {
         get: function () {
             return this._title;
         },
         set: function (val) {
             if (val !== this._title) {
                 this._title = val;
-                this.dom.find(".widgetMobileSelectorText").text(val);
+                this.dom.find(".widgetSelectorText").text(val);
             }
         },
         enumerable: true,
         configurable: true
     });
-    WidgetMobileSelector.prototype.show = function () {
-        this.dom.addClass("widgetMobileSelectorShow");
+    WidgetSelector.prototype.show = function () {
+        this.dom.addClass("widgetSelectorShow");
+        $("body").addClass("show-ws");
     };
-    WidgetMobileSelector.prototype.hide = function () {
-        this.dom.removeClass("widgetMobileSelectorShow");
+    WidgetSelector.prototype.hide = function () {
+        this.dom.removeClass("widgetSelectorShow");
+        $("body").removeClass("show-ws");
     };
-    WidgetMobileSelector.prototype.activeItem = function (dom) {
+    WidgetSelector.prototype.activeItem = function (dom) {
         var data = dom.data("data");
-        var thisListDom = dom.parents(".widgetMobileSelectorList:eq(0)");
+        var thisListDom = dom.parents(".widgetSelectorList:eq(0)");
         if (data.length > 0) {
             var nextListDom = thisListDom.next();
-            if (thisListDom.hasClass("widgetMobileSelectorList")) {
+            if (thisListDom.hasClass("widgetSelectorList")) {
                 nextListDom = thisListDom.next();
-                nextListDom.html("<div class=\"widgetMobileSelectorBlank\"></div>").removeAttr("style");
+                nextListDom.html("<div class=\"widgetSelectorBlank\"></div>").removeAttr("style");
                 var i = 0;
                 for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
                     var item = data_1[_i];
                     if (item.value === undefined)
                         item.value = item.text;
-                    var itemDom = $("<div class=\"widgetMobileSelectorItem\" value=\"" + item.value + "\">" + item.text + "</div>").appendTo(nextListDom);
+                    var itemDom = $("<div class=\"widgetSelectorItem\" value=\"" + item.value + "\">" + item.text + "</div>").appendTo(nextListDom);
                     itemDom.data("data", item.data ? item.data : {});
                     if (i === 0) {
-                        itemDom.addClass("widgetMobileSelectorSelected");
+                        itemDom.addClass("widgetSelectorSelected");
                         if (item.data)
                             this.activeItem(itemDom);
                     }
                     ++i;
                 }
-                nextListDom.append("<div class=\"widgetMobileSelectorBlank\"></div>");
+                nextListDom.append("<div class=\"widgetSelectorBlank\"></div>");
                 nextListDom.scrollTop(0);
             }
             else {
@@ -151,8 +155,8 @@ var WidgetMobileSelector = (function () {
             }
         }
     };
-    WidgetMobileSelector.verison = "0.1";
-    return WidgetMobileSelector;
+    WidgetSelector.verison = "0.2";
+    return WidgetSelector;
 }());
-$("head:eq(0)").prepend("<style>\n.widgetMobileSelector{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .1); font-size: 14px; z-index: 1000; display: none;}\n.widgetMobileSelectorShow{display: block;}\n.widgetMobileSelectorBody{height: 300px; background-color: #f9f9f9; position: absolute; width: 100%; left: 0; bottom: 0;}\n.widgetMobileSelectorTitle{box-sizing: border-box; border-top: 1px solid #cacaca; display: -webkit-box;}\n.widgetMobileSelectorTitle > div{height: 50px; line-height: 50px;}\n.widgetMobileSelectorText{text-align: center; -webkit-box-flex: 2; font-size: 18px; width: 0;}\n.widgetMobileSelectorLeft,.widgetMobileSelectorRight{text-align: center; -webkit-box-flex: 1; width: 0;}\n.widgetMobileSelectorContent{box-sizing: border-box; border-top: 1px solid #e1e5e7; position: relative; background-color: #FFF; display: -webkit-box;}\n.widgetMobileSelectorList{overflow: scroll; height: 250px; -webkit-box-flex: 1; width: 0;}\n.widgetMobileSelectorItem{height: 50px; line-height: 50px; text-align: center;}\n.widgetMobileSelectorBlank{height: 100px;}\n.widgetMobileSelectorTop,.widgetMobileSelectorBottom{height: 100px; background-color: rgba(255,255,255,.7); position: absolute; left: 0; width: 100%; pointer-events: none; box-sizing: border-box;}\n.widgetMobileSelectorTop{top: 0; border-bottom: 1px solid #e1e5e7;}\n.widgetMobileSelectorBottom{bottom: 0; border-top: 1px solid #e1e5e7;}\n</style>");
+$("head:eq(0)").prepend("<style>\nbody.show-ws{overflow: hidden;}\n.widgetSelector{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .1); font-size: 14px; z-index: 1000; display: none; -webkit-user-select: none;}\n.widgetSelectorShow{display: block;}\n.widgetSelectorBody{height: 300px; background-color: #f9f9f9; position: absolute; width: 100%; left: 0; bottom: 0;}\n.widgetSelectorTitle{box-sizing: border-box; border-top: 1px solid #cacaca; display: -webkit-box;}\n.widgetSelectorTitle > div{height: 50px; line-height: 50px;}\n.widgetSelectorText{text-align: center; -webkit-box-flex: 2; font-size: 18px; width: 0;}\n.widgetSelectorLeft,.widgetSelectorRight{text-align: center; -webkit-box-flex: 1; width: 0;}\n.widgetSelectorContent{box-sizing: border-box; border-top: 1px solid #e1e5e7; position: relative; background-color: #FFF; display: -webkit-box;}\n.widgetSelectorList{overflow: scroll; height: 250px; -webkit-box-flex: 1; width: 0;}\n.widgetSelectorItem{height: 50px; line-height: 50px; text-align: center;}\n.widgetSelectorBlank{height: 100px;}\n.widgetSelectorTop,.widgetSelectorBottom{height: 100px; background-color: rgba(255,255,255,.7); position: absolute; left: 0; width: 100%; pointer-events: none; box-sizing: border-box;}\n.widgetSelectorTop{top: 0; border-bottom: 1px solid #e1e5e7;}\n.widgetSelectorBottom{bottom: 0; border-top: 1px solid #e1e5e7;}\n</style>");
 //# sourceMappingURL=selector.js.map

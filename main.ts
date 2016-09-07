@@ -1,5 +1,5 @@
 $(document).ready(function(e) {
-    let wms: WidgetMobileSelector = new WidgetMobileSelector({
+    let wms: WidgetSelector = new WidgetSelector({
         data: [{
             text: "English",
             data: [{
@@ -58,22 +58,24 @@ $(document).ready(function(e) {
             }]
         }]
     });
-    wms.onSelect = function(list: WidgetMobileSelectorList): void {
+    wms.onSelect = function(list: WidgetSelectorList): void {
         $("#touch > div").text("U select: " + list[0].text + " -> " + list[1].text + " -> " + list[2].text);
     };
-    let wms2: WidgetMobileSelector = new WidgetMobileSelector({
+    let wms2: WidgetSelector = new WidgetSelector({
         title: "中文选框",
         lang: "zh-cn",
         data: [{text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}, {text: "12345"}]
     });
-    wms2.onSelect = function(list: WidgetMobileSelectorList): void {
+    wms2.onSelect = function(list: WidgetSelectorList): void {
         $("#touch2 > div").text("U select: " + list[0].text);
     };
-    $("#touch").on("touchstart", function(): void {
+    ModuleTouch.tap("#touch", function(): boolean {
         wms.show();
+        return false;
     });
-    $("#touch2").on("touchstart", function(): void {
+    ModuleTouch.tap("#touch2", function(): boolean {
         wms2.show();
+        return false;
     });
 });
 

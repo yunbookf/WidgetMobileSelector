@@ -1,5 +1,5 @@
 $(document).ready(function (e) {
-    var wms = new WidgetMobileSelector({
+    var wms = new WidgetSelector({
         data: [{
                 text: "English",
                 data: [{
@@ -61,7 +61,7 @@ $(document).ready(function (e) {
     wms.onSelect = function (list) {
         $("#touch > div").text("U select: " + list[0].text + " -> " + list[1].text + " -> " + list[2].text);
     };
-    var wms2 = new WidgetMobileSelector({
+    var wms2 = new WidgetSelector({
         title: "中文选框",
         lang: "zh-cn",
         data: [{ text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }, { text: "12345" }]
@@ -69,11 +69,13 @@ $(document).ready(function (e) {
     wms2.onSelect = function (list) {
         $("#touch2 > div").text("U select: " + list[0].text);
     };
-    $("#touch").on("touchstart", function () {
+    ModuleTouch.tap("#touch", function () {
         wms.show();
+        return false;
     });
-    $("#touch2").on("touchstart", function () {
+    ModuleTouch.tap("#touch2", function () {
         wms2.show();
+        return false;
     });
 });
 //# sourceMappingURL=main.js.map
