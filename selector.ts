@@ -114,17 +114,15 @@ class WidgetSelector {
         listDoms.each((function(i, item): void {
             let listDom: JQuery = $(item);
             ModuleTouch.scrollEnd(listDom, (function(): void {
-                if (listDom.data("scrollEnd.ws") !== true) {
-                    listDom.data("scrollEnd.ws", true);
-                    let index: number =  Math.round(listDom.scrollTop() / 50);
+                let index: number = Math.round(listDom.scrollTop() / 50);
+                if (listDom.scrollTop() !== index * 50) {
+                    alert("1");
                     listDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
                     listDom.children(`.widgetSelectorItem:eq(${index})`).addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
                     // --- 激活 ---
                     this.activeItem(listDom.children(".widgetSelectorSelected"));
-                } else {
-                    listDom.removeData("scrollEnd.ws");
                 }
             }).bind(this));
         }).bind(this));

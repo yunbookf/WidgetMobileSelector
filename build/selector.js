@@ -61,17 +61,14 @@ var WidgetSelector = (function () {
         listDoms.each((function (i, item) {
             var listDom = $(item);
             ModuleTouch.scrollEnd(listDom, (function () {
-                if (listDom.data("scrollEnd.ws") !== true) {
-                    listDom.data("scrollEnd.ws", true);
-                    var index = Math.round(listDom.scrollTop() / 50);
+                var index = Math.round(listDom.scrollTop() / 50);
+                if (listDom.scrollTop() !== index * 50) {
+                    alert("1");
                     listDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
                     listDom.children(".widgetSelectorItem:eq(" + index + ")").addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
                     this.activeItem(listDom.children(".widgetSelectorSelected"));
-                }
-                else {
-                    listDom.removeData("scrollEnd.ws");
                 }
             }).bind(this));
         }).bind(this));
