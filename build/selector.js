@@ -66,6 +66,8 @@ var WidgetSelector = (function () {
                     listDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
+                }
+                else {
                     listDom.children(".widgetSelectorItem:eq(" + index + ")").addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
                     this.activeItem(listDom.children(".widgetSelectorSelected"));
                 }

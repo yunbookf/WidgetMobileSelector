@@ -119,6 +119,7 @@ class WidgetSelector {
                     listDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
+                } else {
                     listDom.children(`.widgetSelectorItem:eq(${index})`).addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
                     // --- 激活 ---
                     this.activeItem(listDom.children(".widgetSelectorSelected"));
