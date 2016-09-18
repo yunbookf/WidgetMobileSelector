@@ -8,7 +8,7 @@ Scrolling speed is super fast, and compete with native controls!
 本组件虽然使用 TypeScript 开发，但是也可以用于 JavaScript。  
 The components use TypeScript to develop, but can also be used in JavaScript.  
 
-本项目依赖 ModuleTouch，需要在引用 selector.min.js 的同时引用 touch.min.js。   
+本项目依赖 ModuleTouch，需要在引用 selector.min.js 的同时引用 touch.min.js 0.4+。   
 This project has a dependency on ModuleTouch, you need to reference navigate.min.js reference touch.min.js.  
   
 [ModuleTouch on Github](https://github.com/yunbookf/ModuleTouch)
@@ -18,7 +18,7 @@ This project has a dependency on ModuleTouch, you need to reference navigate.min
 Use the following code to create a selector, and use the show() method can make it appear at any time:  
   
 ```typescript
-let wms: WidgetSelector = new WidgetSelector({
+let ws: WidgetSelector = new WidgetSelector({
     data: [{
         text: "one"
     }, {
@@ -27,7 +27,7 @@ let wms: WidgetSelector = new WidgetSelector({
 });
 
 $("body").on("click", function(): void {
-    wms.show();
+    ws.show();
 });
 ```
   
@@ -39,7 +39,7 @@ $("body").on("click", function(): void {
 Only need to specify data in the data, and then you can, up to 3 layers, for example:  
   
 ```typescript
-let wms: WidgetSelector = new WidgetSelector({
+let ws: WidgetSelector = new WidgetSelector({
     data: [{
         text: "one",
         data: [{
@@ -68,7 +68,7 @@ let wms: WidgetSelector = new WidgetSelector({
 In this component, you can get to the display text of all selected items, as well as his value, as follows:  
   
 ```typescript
-let wmst: WidgetSelector = new WidgetSelector({
+let ws: WidgetSelector = new WidgetSelector({
     data: [{
         text: "one",
         value: "1",
@@ -91,9 +91,9 @@ let wmst: WidgetSelector = new WidgetSelector({
         }]
     }]
 });
-wmst.show();
+ws.show();
 
-wmst.onSelect = function(list: WidgetSelectorList): void {
+ws.onSelect = function(list: WidgetSelectorList): void {
     alert("U select: " + list[0].text + "(" + list[0].value + "), " + list[1].text + "(" + list[1].value + ")");
 };
 ```
@@ -101,10 +101,15 @@ wmst.onSelect = function(list: WidgetSelectorList): void {
 ## API
   
 ```typescript
-interface WidgetSelectorInstance {
-    lang: string;
-    langList: any;
-    title: string;
+declare class WidgetSelector {
+    public static version;
+
+    public dom: JQuery;
+    public lang: string;
+    public langList: any;
+    public title: string;
+
+    constructor(opts?: WidgetSelectorOptions);
 
     show(): void;
     hide(): void;
@@ -113,9 +118,9 @@ interface WidgetSelectorInstance {
 }
 ```
   
-## 浏览器兼容 / Compatibility
-基本上所有手机浏览器都支持，依赖 jQuery。  
-Almost all mobile browsers support, and need jQuery.  
+## 兼容 / Compatibility
+基本上所有手机浏览器都支持，依赖 jQuery，ModuleTouch。  
+Almost all mobile browsers support, and need jQuery, ModuleTouch.  
   
 ## 关于 / About
 本组件由迈云网络开发开源，欢迎各位PR。  
@@ -123,3 +128,9 @@ Powered by Maiyun.net, welcome to pull request.
 http://www.maiyun.net  
   
 Translation is provided by Microsoft.
+
+## 修改记录 / Changelog
+### 0.3 - 2016-09-18
+[UPDATE] 更新组件到 ModuleTouch 0.4+.  
+[FIX] 已经可以同时支持电脑浏览器和手机浏览器了.  
+[UI] 取消和确定按钮点击变色优化

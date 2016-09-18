@@ -38,6 +38,7 @@ var WidgetSelector = (function () {
             });
             if (this.onSelect(list) !== false)
                 this.hide();
+            return false;
         }).bind(this));
         $("body").append(dom);
         var listDom1 = dom.find(".widgetSelectorList:eq(0)");
@@ -56,25 +57,22 @@ var WidgetSelector = (function () {
             ++i;
         }
         listDom1.append("<div class=\"widgetSelectorBlank\"></div>");
-        var listDom = dom.find(".widgetSelectorList");
-        listDom.on("touchstart", (function (e) {
-            var thisListDom = $(e.currentTarget);
-            $("body").on("touchend.widgetSelector", (function () {
-                $("body").off("touchend.widgetSelector");
-                var onScrollEnd = (function () {
-                    thisListDom.off("scroll");
-                    var index = Math.round(thisListDom.scrollTop() / 50);
-                    thisListDom.animate({
+        var listDoms = dom.find(".widgetSelectorList");
+        listDoms.each((function (i, item) {
+            var listDom = $(item);
+            ModuleTouch.scrollEnd(listDom, (function () {
+                if (listDom.data("scrollEnd.ws") !== true) {
+                    listDom.data("scrollEnd.ws", true);
+                    var index = Math.round(listDom.scrollTop() / 50);
+                    listDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
-                    thisListDom.children(".widgetSelectorItem:eq(" + index + ")").addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
-                    this.activeItem(thisListDom.children(".widgetSelectorSelected"));
-                }).bind(this);
-                var scrolling = setTimeout(onScrollEnd, 50);
-                thisListDom.on("scroll", (function () {
-                    clearTimeout(scrolling);
-                    scrolling = setTimeout(onScrollEnd, 50);
-                }).bind(this));
+                    listDom.children(".widgetSelectorItem:eq(" + index + ")").addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
+                    this.activeItem(listDom.children(".widgetSelectorSelected"));
+                }
+                else {
+                    listDom.removeData("scrollEnd.ws");
+                }
             }).bind(this));
         }).bind(this));
         this.dom = dom;
@@ -155,8 +153,8 @@ var WidgetSelector = (function () {
             }
         }
     };
-    WidgetSelector.verison = "0.2";
+    WidgetSelector.verison = "0.3";
     return WidgetSelector;
 }());
-$("head:eq(0)").prepend("<style>\nbody.show-ws{overflow: hidden;}\n.widgetSelector{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .1); font-size: 14px; z-index: 1000; display: none; -webkit-user-select: none;}\n.widgetSelectorShow{display: block;}\n.widgetSelectorBody{height: 300px; background-color: #f9f9f9; position: absolute; width: 100%; left: 0; bottom: 0;}\n.widgetSelectorTitle{box-sizing: border-box; border-top: 1px solid #cacaca; display: -webkit-box;}\n.widgetSelectorTitle > div{height: 50px; line-height: 50px;}\n.widgetSelectorText{text-align: center; -webkit-box-flex: 2; font-size: 18px; width: 0;}\n.widgetSelectorLeft,.widgetSelectorRight{text-align: center; -webkit-box-flex: 1; width: 0;}\n.widgetSelectorContent{box-sizing: border-box; border-top: 1px solid #e1e5e7; position: relative; background-color: #FFF; display: -webkit-box;}\n.widgetSelectorList{overflow: scroll; height: 250px; -webkit-box-flex: 1; width: 0;}\n.widgetSelectorItem{height: 50px; line-height: 50px; text-align: center;}\n.widgetSelectorBlank{height: 100px;}\n.widgetSelectorTop,.widgetSelectorBottom{height: 100px; background-color: rgba(255,255,255,.7); position: absolute; left: 0; width: 100%; pointer-events: none; box-sizing: border-box;}\n.widgetSelectorTop{top: 0; border-bottom: 1px solid #e1e5e7;}\n.widgetSelectorBottom{bottom: 0; border-top: 1px solid #e1e5e7;}\n</style>");
+$("head:eq(0)").prepend("<style>\nbody.show-ws{overflow: hidden;}\n.widgetSelector{position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .1); font-size: 14px; z-index: 1000; display: none; -webkit-user-select: none;}\n.widgetSelectorShow{display: block;}\n.widgetSelectorBody{height: 300px; background-color: #f9f9f9; position: absolute; width: 100%; left: 0; bottom: 0;}\n.widgetSelectorTitle{box-sizing: border-box; border-top: 1px solid #cacaca; display: -webkit-box;}\n.widgetSelectorTitle > div{height: 50px; line-height: 50px;}\n.widgetSelectorText{text-align: center; -webkit-box-flex: 2; font-size: 18px; width: 0;}\n.widgetSelectorLeft,.widgetSelectorRight{text-align: center; -webkit-box-flex: 1; width: 0;}\n.widgetSelectorLeft.active-mt,.widgetSelectorRight.active-mt{background-color: rgba(0,0,0,.05);}\n.widgetSelectorContent{box-sizing: border-box; border-top: 1px solid #e1e5e7; position: relative; background-color: #FFF; display: -webkit-box;}\n.widgetSelectorList{overflow: scroll; height: 250px; -webkit-box-flex: 1; width: 0;}\n.widgetSelectorItem{height: 50px; line-height: 50px; text-align: center;}\n.widgetSelectorBlank{height: 100px;}\n.widgetSelectorTop,.widgetSelectorBottom{height: 100px; background-color: rgba(255,255,255,.7); position: absolute; left: 0; width: 100%; pointer-events: none; box-sizing: border-box;}\n.widgetSelectorTop{top: 0; border-bottom: 1px solid #e1e5e7;}\n.widgetSelectorBottom{bottom: 0; border-top: 1px solid #e1e5e7;}\n</style>");
 //# sourceMappingURL=selector.js.map

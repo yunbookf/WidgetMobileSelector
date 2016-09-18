@@ -5,7 +5,7 @@
 class WidgetSelector {
 
     public dom: JQuery;
-    public static verison: string = "0.2";
+    public static verison: string = "0.3";
 
     // --- 语言 ---
     private _lang: string = "en-us";
@@ -80,7 +80,7 @@ class WidgetSelector {
             this.hide();
             return false;
         }).bind(this));
-        ModuleTouch.tap(dom.find(".widgetSelectorRight"), (function(): void {
+        ModuleTouch.tap(dom.find(".widgetSelectorRight"), (function(): boolean {
             let list: WidgetSelectorList = [];
             dom.find(".widgetSelectorSelected").each(function(i, item): void {
                 let itemDom: JQuery = $(item);
@@ -91,6 +91,7 @@ class WidgetSelector {
             });
             if (this.onSelect(list) !== false)
                 this.hide();
+            return false;
         }).bind(this));
         $("body").append(dom);
         // --- 绑定数据 ---
@@ -109,26 +110,22 @@ class WidgetSelector {
         }
         listDom1.append(`<div class="widgetSelectorBlank"></div>`);
         // --- 绑定滚动事件 ---
-        let listDom = dom.find(".widgetSelectorList");
-        listDom.on("touchstart", (function(e: JQueryEventObject): void {
-            let thisListDom: JQuery = $(e.currentTarget);
-            $("body").on("touchend.widgetSelector", (function(): void {
-                $("body").off("touchend.widgetSelector");
-                let onScrollEnd: () => void = (function(): void{
-                    thisListDom.off("scroll");
-                    let index: number =  Math.round(thisListDom.scrollTop() / 50);
-                    thisListDom.animate({
+        let listDoms = dom.find(".widgetSelectorList");
+        listDoms.each((function(i, item): void {
+            let listDom: JQuery = $(item);
+            ModuleTouch.scrollEnd(listDom, (function(): void {
+                if (listDom.data("scrollEnd.ws") !== true) {
+                    listDom.data("scrollEnd.ws", true);
+                    let index: number =  Math.round(listDom.scrollTop() / 50);
+                    listDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
-                    thisListDom.children(`.widgetSelectorItem:eq(${index})`).addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
+                    listDom.children(`.widgetSelectorItem:eq(${index})`).addClass("widgetSelectorSelected").siblings(".widgetSelectorSelected").removeClass("widgetSelectorSelected");
                     // --- 激活 ---
-                    this.activeItem(thisListDom.children(".widgetSelectorSelected"));
-                }).bind(this);
-                let scrolling: number = setTimeout(onScrollEnd, 50);
-                thisListDom.on("scroll", (function(): void {
-                    clearTimeout(scrolling);
-                    scrolling = setTimeout(onScrollEnd, 50);
-                }).bind(this));
+                    this.activeItem(listDom.children(".widgetSelectorSelected"));
+                } else {
+                    listDom.removeData("scrollEnd.ws");
+                }
             }).bind(this));
         }).bind(this));
         this.dom = dom;
@@ -196,6 +193,7 @@ body.show-ws{overflow: hidden;}
 .widgetSelectorTitle > div{height: 50px; line-height: 50px;}
 .widgetSelectorText{text-align: center; -webkit-box-flex: 2; font-size: 18px; width: 0;}
 .widgetSelectorLeft,.widgetSelectorRight{text-align: center; -webkit-box-flex: 1; width: 0;}
+.widgetSelectorLeft.active-mt,.widgetSelectorRight.active-mt{background-color: rgba(0,0,0,.05);}
 .widgetSelectorContent{box-sizing: border-box; border-top: 1px solid #e1e5e7; position: relative; background-color: #FFF; display: -webkit-box;}
 .widgetSelectorList{overflow: scroll; height: 250px; -webkit-box-flex: 1; width: 0;}
 .widgetSelectorItem{height: 50px; line-height: 50px; text-align: center;}
