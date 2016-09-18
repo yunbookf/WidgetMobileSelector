@@ -63,7 +63,6 @@ var WidgetSelector = (function () {
             ModuleTouch.scrollEnd(listDom, (function () {
                 var index = Math.round(listDom.scrollTop() / 50);
                 if (listDom.scrollTop() !== index * 50) {
-                    alert("1");
                     listDom.animate({
                         "scrollTop": index * 50 + "px"
                     }, 50);
